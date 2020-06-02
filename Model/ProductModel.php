@@ -1,2 +1,9 @@
 <?php
-    echo "product model";
+    class ProductModel
+    {
+        public function insert($data)
+        {
+            echo "insert data model";
+        }
+    }
+    

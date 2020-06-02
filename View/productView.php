@@ -7,8 +7,7 @@
             <div class="card-body">
                 <h2 class="title">Product </h2>
 
-                <form>
-
+                <form method="POST">
                     <!-- amount -->
                     <div class="input-group">
                         <!-- comment out html validations -->
@@ -81,8 +80,10 @@
 
 
                     <div class="p-t-30">
-                        <button class="btn btn--radius btn--green" type="submit">Submit</button>
+                        <!-- <button class="btn btn--radius btn--green" name="submitBtn" id="submitBtn">Submit</button> -->
                         <!-- <input type="submit" value="Submit"> -->
+                        <input class="btn btn--radius btn--green" type="submit" name="submit" value="Submit" />
+
                     </div>
                 </form>
 
@@ -114,7 +115,7 @@
     });
 </script>
 
-<!-- validation scripts -->
+<!-- validation scripts and submission -->
 <script type="text/javascript">
     ////custom methods for validation
     $.validator.addMethod('regex', function(value, element, param) {
@@ -196,66 +197,28 @@
                 regex: "only text, spaces accepted for City",
                 maxlength: "City length can not be more than 20 characters"
             }
+        },
+        submitHandler: function(form, e) {
+            e.preventDefault();
+            console.log('Form submitted');
+            $.ajax({
+                type: 'POST',
+                url: 'Controller/ProductControllerHandler.php',
+                dataType: "html",
+                data: $('form').serialize(),
+                success: function(result) {
+                    alert('submitted')
+                },
+                error: function(error) {
+
+                }
+            });
+            return false;
         }
     });
 </script>
 
 
-<!-- form submission -->
-<script src="">
-    // process the form
-    $('form').submit(function(event) {
-
-        event.preventDefault()
-
-        // var amount = $.trim($('#amount').val());
-        // var formSubmission = false;
-
-        // // // Check if empty of not
-        // if (amount === '') {
-        //     alert('amount is empty.');
-        //     return false;
-        // }
-        console.log('hello submitter');
-        alert('f s');
-
-
-
-
-        // get the form data
-        // there are many ways to get this data using jQuery (you can use the class or id also)
-        // var formData = {
-        //     'name': $('input[name=name]').val(),
-        //     'email': $('input[name=email]').val(),
-        //     'superheroAlias': $('input[name=superheroAlias]').val()
-        // };
-
-        // // process the form
-        // $.ajax({
-        //         type: 'POST', // define the type of HTTP verb we want to use (POST for our form)
-        //         url: 'process.php', // the url where we want to POST
-        //         data: formData, // our data object
-        //         dataType: 'json', // what type of data do we expect back from the server
-        //         encode: true
-        //     })
-        //     // using the done promise callback
-        //     .done(function(data) {
-
-        //         // log data to the console so we can see
-        //         console.log(data);
-
-        //         // here we will handle errors and validation messages
-        //     });
-
-
-
-
-
-
-
-
-    });
-</script>
 
 
 <?php include('footer.php'); ?>
