@@ -2,10 +2,18 @@
 
 <div class="page-wrapper bg-red p-t-180 p-b-100 font-robo">
     <div class="wrapper wrapper--w960">
+
+
         <div class="card card-2">
             <div class="card-heading"></div>
             <div class="card-body">
                 <h2 class="title">Product </h2>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="alert alert-danger display-error">
+                        </div>
+                    </div>
+                </div>
 
                 <form method="POST">
                     <!-- amount -->
@@ -39,10 +47,10 @@
                     <div class="input-group">
                         <label for="" class="input--style-2">Items:</label>
                         <select class="item-select" multiple="true" name="items[]" id="items" style="width:100%;">
-                            <option value="item1">Item1</option>
-                            <option value="item2">Item2</option>
-                            <option value="item3">Item3</option>
-                            <option value="item4">Item4</option>
+                            <option value="itemOne">Item One</option>
+                            <option value="itemTwo">Item Two</option>
+                            <option value="itemThree">Item Three</option>
+                            <option value="itemFour">Item Four</option>
                         </select>
                     </div>
 
@@ -131,89 +139,103 @@
 
     // validate the form 
     $("form").validate({
-        rules: {
-            amount: {
-                required: true,
-                number: true,
-                maxlength: 10
-            },
-            buyer: {
-                required: true,
-                maxlength: 20,
-                regex: /^[a-zA-Z\s0-9]+$/ //only text, spaces and numbers regex
-            },
-            receiptId: {
-                required: true,
-                maxlength: 20,
-                regex: /(^[a-z ]+$)/i //only text, 
-            },
-            items: {
-                required: true,
-                regex: /(^[a-z ]+$)/i //only text, 
-            },
-            buyerEmail: {
-                required: true,
-                email: true,
-                maxlength: 50
-            },
-            note: {
-                required: true,
-                wordCount: true
+        // rules: {
+        //     amount: {
+        //         required: true,
+        //         number: true,
+        //         maxlength: 10
+        //     },
+        //     buyer: {
+        //         required: true,
+        //         maxlength: 20,
+        //         regex: /^[a-zA-Z\s0-9]+$/ //only text, spaces and numbers regex
+        //     },
+        //     receiptId: {
+        //         required: true,
+        //         maxlength: 20,
+        //         regex: /(^[a-z ]+$)/i //only text, 
+        //     },
+        //     items: {
+        //         required: true,
+        //         regex: /(^[a-z ]+$)/i //only text, 
+        //     },
+        //     buyerEmail: {
+        //         required: true,
+        //         email: true,
+        //         maxlength: 50
+        //     },
+        //     note: {
+        //         required: true,
+        //         wordCount: true
 
-            },
-            city: {
-                required: true,
-                maxlength: 20,
-                regex: /^[a-zA-Z\s]+$/ //only text, spaces regex
+        //     },
+        //     city: {
+        //         required: true,
+        //         maxlength: 20,
+        //         regex: /^[a-zA-Z\s]+$/ //only text, spaces regex
 
-            },
-            phone: {
-                required: true,
-                maxlength: 20,
-                number: true
-            },
-            entryBy: {
-                required: true,
-                maxlength: 10,
-                number: true
-            }
-        },
-        messages: {
-            amount: {
-                required: "Amount is required",
-                number: "amount must be a number",
-                maxlength: "amount cannot be  more than 10 characters",
-            },
-            buyer: {
-                required: "Buyer is required",
-                regex: "only text, spaces and numbers are accepted for Buyer",
-            },
-            receiptId: {
-                required: "Receipt id is required",
-                regex: "only text is accepted",
-            },
-            city: {
-                required: "City is required",
-                regex: "only text, spaces accepted for City",
-                maxlength: "City length can not be more than 20 characters"
-            }
-        },
+        //     },
+        //     phone: {
+        //         required: true,
+        //         maxlength: 20,
+        //         number: true
+        //     },
+        //     entryBy: {
+        //         required: true,
+        //         maxlength: 10,
+        //         number: true
+        //     }
+        // },
+        // messages: {
+        //     amount: {
+        //         required: "Amount is required",
+        //         number: "amount must be a number",
+        //         maxlength: "amount cannot be  more than 10 characters",
+        //     },
+        //     buyer: {
+        //         required: "Buyer is required",
+        //         regex: "only text, spaces and numbers are accepted for Buyer",
+        //     },
+        //     receiptId: {
+        //         required: "Receipt id is required",
+        //         regex: "only text is accepted",
+        //     },
+        //     city: {
+        //         required: "City is required",
+        //         regex: "only text, spaces accepted for City",
+        //         maxlength: "City length can not be more than 20 characters"
+        //     }
+        // },
         submitHandler: function(form, e) {
             e.preventDefault();
-            console.log('Form submitted');
+            // console.log('Form submitted');
             $.ajax({
                 type: 'POST',
                 url: 'Controller/ProductControllerHandler.php',
                 dataType: "html",
                 data: $('form').serialize(),
-                success: function(result) {
-                    alert('submitted')
+                success: function(data) {
+                    alert('submitted');
+                    var jsonData = JSON.parse(data);
+
+                    console.log(jsonData.msg);
+
+
+                    // alert(data);
+
+                    if (jsonData.code == 404) {
+                        $(".display-error").html("<ul>" + jsonData.msg + "</ul>");
+                        $(".display-error").css("display", "block");
+                        $(".display-error").css("color", "red");
+                    }
+
                 },
                 error: function(error) {
-
+                    console.log(error);
                 }
             });
             return false;
+
         }
     });
 </script>
