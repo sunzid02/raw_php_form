@@ -49,6 +49,6 @@ if (isset($_POST))
     $pc = new ProductController();
 
     ////send the data for validation and submission
-    $result = $pc->formSubmission($data);
+    $result = $pc->validationAndSubmission($data);
     // echo $result;
 }

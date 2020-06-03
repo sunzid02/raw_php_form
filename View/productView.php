@@ -117,9 +117,6 @@
 
     $(function() {
         $(".item-select").chosen();
-
-        $('.chosen-container chosen-container-multi').attr('placeholder', 'Placeholder text');
-
     });
 </script>
 
@@ -223,10 +220,19 @@
 
                     // alert(data);
 
-                    if (jsonData.code == 404) {
+                    if (jsonData.code == 404) /////form validation
+                    {
+                        $(".display-error").html("");
                         $(".display-error").html("<ul>" + jsonData.msg + "</ul>");
                         $(".display-error").css("display", "block");
                         $(".display-error").css("color", "red");
+                    } 
+                    else if (jsonData.code == 200 && jsonData.msg == "successInsert") 
+                    {
+                        $(".display-error").html("");
+                        alert('Inserted successfully');
+                        $('form').trigger("reset");
+                        $(".item-select").val('').trigger("chosen:updated");
                     }
 
                 },
