@@ -1,6 +1,6 @@
 <?php include('header.php'); ?>
 
-<div class="page-wrapper bg-red p-t-180 p-b-100 font-robo">
+<div class="page-wrapper bg-red p-t-30 p-b-30 font-robo">
     <div class="wrapper wrapper--w960">
 
 
@@ -24,34 +24,16 @@
                         <input class="input--style-2" type="text" placeholder="Amount" name="amount" id="amount" autofocus>
                     </div>
 
-                    <!-- buyer, receipt_id -->
-                    <div class="row row-space">
-                        <!-- buyer -->
-                        <div class="col-2">
-                            <div class="input-group">
-                                <!-- <input class="input--style-2" type="text" placeholder="Buyer" name="buyer" maxlength="255" id="buyer"> -->
-                                <input class="input--style-2" type="text" placeholder="Buyer" name="buyer" id="buyer">
-                            </div>
-                        </div>
-
-
-                        <!-- receipt_id  -->
-                        <div class="col-2">
-                            <div class="input-group">
-                                <input class="input--style-2" type="text" placeholder="Receipt id" name="receiptId" maxlength="20" id="receiptId">
-                            </div>
-                        </div>
+                    <!-- buyer -->
+                    <div class="input-group">
+                        <!-- <input class="input--style-2" type="text" placeholder="Buyer" name="buyer" maxlength="255" id="buyer"> -->
+                        <input class="input--style-2" type="text" placeholder="Buyer" name="buyer" id="buyer">
                     </div>
 
-                    <!-- items -->
+
+                    <!-- receipt_id  -->
                     <div class="input-group">
-                        <label for="" class="input--style-2">Items:</label>
-                        <select class="item-select" multiple="true" name="items[]" id="items" style="width:100%;">
-                            <option value="itemOne">Item One</option>
-                            <option value="itemTwo">Item Two</option>
-                            <option value="itemThree">Item Three</option>
-                            <option value="itemFour">Item Four</option>
-                        </select>
+                        <input class="input--style-2" type="text" placeholder="Receipt id" name="receiptId" maxlength="20" id="receiptId">
                     </div>
 
                     <!-- buyer_email  -->
@@ -59,17 +41,6 @@
                         <!-- <input class="input--style-2" type="email" min="0" placeholder="Buyer email" name="buyerEmail" maxlength="50" id="buyerEmail"> -->
                         <input class="input--style-2" type="text" placeholder="Buyer email" name="buyerEmail" id="buyerEmail">
                     </div>
-
-                    <!-- note  -->
-                    <br>
-                    <div class="row row-space">
-                        <div class="col-12">
-                            <div class="input-group">
-                                <textarea name="note" id="" cols="60" rows="5">Enter Note....</textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <br>
 
                     <!-- city -->
                     <div class="input-group">
@@ -88,19 +59,38 @@
                         <input class="input--style-2" type="text" placeholder="Entry by" name="entryBy" id="entryBy">
                     </div>
 
+                    <!-- items -->
+                    <label for="items" class="input--style-2" style="display:inline-block; margin-bottom: 1px">Items</label>
+                    <div class="input-group">
+
+                        <select class="item-select" multiple="true" name="items[]" id="items" style="width:100%;">
+                            <option value="itemOne">Item One</option>
+                            <option value="itemTwo">Item Two</option>
+                            <option value="itemThree">Item Three</option>
+                            <option value="itemFour">Item Four</option>
+                        </select>
+                    </div>
+
+
+
+                    <!-- note  -->
+                    <label for="note" class="input--style-2" style="display:inline-block; margin-bottom: 1px">Note</label>
+
+                    <div class="input-group">
+                        <textarea name="note" id="note" placeholder="Enter your note.." cols="70" rows="5"></textarea>
+                    </div>
 
                     <div class="p-t-30">
                         <!-- <button class="btn btn--radius btn--green" name="submitBtn" id="submitBtn">Submit</button> -->
                         <!-- <input type="submit" value="Submit"> -->
-                        <input class="btn btn--radius btn--green" type="submit" name="submit" value="Submit" />
+                        <input class="btn btn--radius btn--blue" type="submit" name="submit" value="Submit" />
 
                     </div>
                 </form>
 
                 <!--------------------------------------------- show all products ------------------------------------------------->
-                <br>
                 <div class="p-t-30">
-                    <input type="button" name="showAllData" value="All Products" class="btn btn--radius btn--green" id="showAllData" onclick="redirection()">
+                    <input type="button" name="showAllData" value="All Products" class="btn btn--radius btn--blue" id="showAllData" onclick="redirection()">
                 </div>
             </div>
         </div>
@@ -234,7 +224,7 @@
                 dataType: "html",
                 data: $('#productForm').serialize(),
                 success: function(data) {
-                    alert('submitted');
+                    // alert('submitted');
                     $("#tabDataDiv").html("");
 
                     var jsonData = JSON.parse(data);

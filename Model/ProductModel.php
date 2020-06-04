@@ -102,17 +102,7 @@
             }
             else 
             {
-                $responseArr['id']  = "no data";
-                $responseArr['amount']  = "no data";
-                $responseArr['buyer']  = "no data";
-                $responseArr['receipt_id']  = "no data";
-                $responseArr['items']  = "no data";
-                $responseArr['buyer_email']  = "no data";
-                $responseArr['note']  = "no data";
-                $responseArr['city']  = "no data";
-                $responseArr['phone']  = "no data";
-                $responseArr['entry_by']  = "no data";
-                $responseArr['entry_at']  = "no data";               
+                $responseArr  = array();            
             }
 
             // echo "<pre>";
