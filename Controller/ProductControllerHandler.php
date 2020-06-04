@@ -58,12 +58,15 @@ if ($_POST['formNumber'] == 1)
 // print_r($_POST);
 
 ////for showing all data
-if ($_POST['formNumber'] == 2 ) 
-{
-    // echo "zia";
-    // die();
-    $pc = new ProductController();
-    $pc->getProductData();
+// if ($_POST['formNumber'] == 2 ) 
+// // {
+// //     // echo "zia";
+// //     // die();
+// //     $pc = new ProductController();
+// //     echo "<script> location.href='./test.php'; </script>";
+// //     exit;
+// //     // include('../test.php');
+// //     // $pc->getProductData();
 
 
-}
+// // }

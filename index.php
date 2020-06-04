@@ -1,2 +1,2 @@
 <?php
-    include('./View/productView.php');
+    include('./View/productFormView.php');

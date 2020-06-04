@@ -78,81 +78,118 @@
             $conn = $connObj->setObjConn();
 
             //// Perform query
-            if ($result = mysqli_query($conn, "SELECT * FROM products")) 
-            {
-                $table = "";
+            $result = mysqli_query($conn, "SELECT * FROM products");
 
-                if (mysqli_num_rows($result) > 0) 
-                {
-                // $table .= '<table id="example" class="display" style="width:100%">';
-
-                //     $table .= '<thead>';
-                //         $table .= '<tr>';
-                //             $table .= '<th>ID</th>';
-                //             $table .= '<th>Amount</th>';
-                //             $table .= '<th>Buyer</th>';
-                //             $table .= '<th>Receipt Id</th>';
-                //             $table .= '<th>Items</th>';
-                //             $table .= '<th>Buyer Email</th>';
-                //             $table .= '<th>Note</th>';
-                //             $table .= '<th>City</th>';
-                //             $table .= '<th>Phone</th>';
-                //             $table .= '<th>Entry By</th>';
-                //         $table .= '</tr>';
-                //     $table .= '</thead>';
-
-                // $table .= '<tbody>';
-
-                // while ($row = mysqli_fetch_assoc($result)) 
-                // {
-                //     $table .= "<tr>";
-                //         $table .= "<td>" . $row['id'] . "</td>";
-                //         $table .= "<td>" . $row['amount'] . "</td>";
-                //         $table .= "<td>" . $row['buyer'] . "</td>";
-                //         $table .= "<td>" . $row['receipt_id'] . "</td>";
-
-                //         // $itmArr = json_decode($row['items'], true);
-                //         // $table .= '<td>';
-                //         // foreach ($itmArr as $key => $value) {
-                //         //     $table .= '<span class="label success">'.$value. '</span>';
-                //         //     // $table .= $value;
-                //         // }
-                //         // $table .= '</td>';
-
-
-
-                //         $table .= "<td>" . $row['buyer_email'] . "</td>";
-                //         $table .= "<td>" . $row['note'] . "</td>";
-                //         $table .= "<td>" . $row['city'] . "</td>";
-                //         $table .= "<td>" . $row['phone'] . "</td>";
-                //         $table .= "<td>" . $row['entry_by'] . "</td>";
-                //     $table .= "</tr>";
-                // }
-                // $table .= '</tbody>';
-
-                // $table .= '</table>';
-                $table .= "<td>" . 'za' . "</td>";
-                $table .= "<td>" . 'za' . "</td>";
-                $table .= "<td>" . 'za' . "</td>";
-                $table .= "<td>" . 'za' . "</td>";
-                $table .= "<td>" . 'za' . "</td>";
-                $table .= "<td>" . 'za' . "</td>";
-                $table .= "<td>" . 'za' . "</td>";
-                $table .= "<td>" . 'za' . "</td>";
-                $table .= "<td>" . 'za' . "</td>";
-
-                    $connObj->closeConnection($conn);
-
-                    echo $response =  json_encode(['code' => 200, 'msg' => 'tableDataFound', 'tdata' => $table]);
-                } 
-                else 
-                {
-                    $connObj->closeConnection($conn);
-
-                    echo $response =  json_encode(['code' => 200, 'msg' => 'tableDataNotFound', 'tdata' => 'no data found']);
+            if (mysqli_num_rows($result) > 0) 
+            {                    
+                $i = 0;
+                while ($row = mysqli_fetch_assoc($result))
+                {    
+                    $responseArr[$i]['id']  = $row['id'] ;
+                    $responseArr[$i]['amount']  = $row['amount'] ;
+                    $responseArr[$i]['buyer']  = $row['buyer'] ;
+                    $responseArr[$i]['receipt_id']  = $row['receipt_id'] ;
+                    $responseArr[$i]['items']  = $row['items'] ;
+                    $responseArr[$i]['buyer_email']  = $row['buyer_email'] ;
+                    $responseArr[$i]['note']  = $row['note'] ;
+                    $responseArr[$i]['city']  = $row['city'] ;
+                    $responseArr[$i]['phone']  = $row['phone'] ;
+                    $responseArr[$i]['entry_by']  = $row['entry_by'] ;
+                    $responseArr[$i]['entry_at']  = $row['entry_at'] ;
+                    $i++;
                 }
                 
             }
+            else 
+            {
+                $responseArr['id']  = "no data";
+                $responseArr['amount']  = "no data";
+                $responseArr['buyer']  = "no data";
+                $responseArr['receipt_id']  = "no data";
+                $responseArr['items']  = "no data";
+                $responseArr['buyer_email']  = "no data";
+                $responseArr['note']  = "no data";
+                $responseArr['city']  = "no data";
+                $responseArr['phone']  = "no data";
+                $responseArr['entry_by']  = "no data";
+                $responseArr['entry_at']  = "no data";               
+            }
+
+            // echo "<pre>";
+            // print_r($responseArr);
+            // die();
+
+            $connObj->closeConnection($conn);
+
+            return $responseArr;
+
+            // if($result) 
+            // {
+            //     $table = "";
+
+            //     if (mysqli_num_rows($result) > 0) 
+            //     {
+            //         $table .= '<table id="example" class="display" style="width:100%">';
+
+            //             $table .= '<thead>';
+            //                 $table .= '<tr>';
+            //                     $table .= '<th>ID</th>';
+            //                     $table .= '<th>Amount</th>';
+            //                     $table .= '<th>Buyer</th>';
+            //                     $table .= '<th>Receipt Id</th>';
+            //                     $table .= '<th>Items</th>';
+            //                     $table .= '<th>Buyer Email</th>';
+            //                     $table .= '<th>Note</th>';
+            //                     $table .= '<th>City</th>';
+            //                     $table .= '<th>Phone</th>';
+            //                     $table .= '<th>Entry By</th>';
+            //                 $table .= '</tr>';
+            //             $table .= '</thead>';
+
+            //         $table .= '<tbody>';
+
+            //         while ($row = mysqli_fetch_assoc($result)) 
+            //         {
+            //             $table .= "<tr>";
+            //                 $table .= "<td>" . $row['id'] . "</td>";
+            //                 $table .= "<td>" . $row['amount'] . "</td>";
+            //                 $table .= "<td>" . $row['buyer'] . "</td>";
+            //                 $table .= "<td>" . $row['receipt_id'] . "</td>";
+
+            //                 $itmArr = json_decode($row['items'], true);
+            //                 $table .= '<td>';
+            //                 foreach ($itmArr as $key => $value) {
+            //                     $table .= '<span class="label success">'.$value. '</span>';
+            //                     // $table .= $value;
+            //                 }
+            //                 $table .= '</td>';
+
+
+
+            //                 $table .= "<td>" . $row['buyer_email'] . "</td>";
+            //                 $table .= "<td>" . $row['note'] . "</td>";
+            //                 $table .= "<td>" . $row['city'] . "</td>";
+            //                 $table .= "<td>" . $row['phone'] . "</td>";
+            //                 $table .= "<td>" . $row['entry_by'] . "</td>";
+            //             $table .= "</tr>";
+            //         }
+            //         $table .= '</tbody>';
+
+            //         $table .= '</table>';
+             
+
+            //         $connObj->closeConnection($conn);
+
+            //         echo $response =  json_encode(['code' => 200, 'msg' => 'tableDataFound', 'tdata' => $table]);
+            //     } 
+            //     else 
+            //     {
+            //         $connObj->closeConnection($conn);
+
+            //         echo $response =  json_encode(['code' => 200, 'msg' => 'tableDataNotFound', 'tdata' => 'no data found']);
+            //     }
+                
+            // }
 
 
 

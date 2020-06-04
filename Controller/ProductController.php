@@ -161,7 +161,13 @@ class ProductController
     public function getProductData()
     {
         $product = new ProductModel();
-        $product->allProducts();
+        $allProducts = $product->allProducts();
+        // echo "<pre>";
+        // print_r($allProducts);
+        // echo "controller";
+        // die();
+
+        include('../View/allProductView.php');
 
     }
 }

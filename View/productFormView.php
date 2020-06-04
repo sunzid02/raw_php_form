@@ -99,46 +99,26 @@
                     </div>
                 </form>
 
+                <!--------------------------------------------- show all products ------------------------------------------------->
+                <br>
+                <!-- <form method="post" id="allProductForm"> -->
+                <div class="p-t-30">
+                    <!-- <input type="hidden" name="formNumber" value="2" /> -->
+                    <?php
+                    // $projectName = explode('/', $_SERVER['REQUEST_URI'])[1];
+                    // $testRoute = "'" . $_SERVER['HTTP_HOST'] . '/' . $projectName . '/test.php' . "'";
+                    ?>
+                    <input type="button" name="showAllData" value="All Products" class="btn btn--radius btn--green" id="showAllData" onclick="redirection()">
+                </div>
+                <!-- </form> -->
+
+
 
             </div>
         </div>
-        <!--------------------------------------------- show all products ------------------------------------------------->
-        <br>
-        <form method="post" id="allProductForm">
-            <div class="p-t-30">
-                <input type="hidden" name="formNumber" value="2" />
-
-                <input class="btn btn--radius btn--green" type="submit" name="showAllData" value="All Products" />
-            </div>
-        </form>
     </div>
 </div>
 
-<div class="card card-2">
-    <div class="card-body">
-        <table id="example" class="display" style="width:100%">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Amount</th>
-                    <th>Buyer</th>
-                    <th>Receipt Id</th>
-                    <!-- <th>Items</th> -->
-                    <th>Buyer Email</th>
-                    <th>Note</th>
-                    <th>City</th>
-                    <th>Phone</th>
-                    <th>Entry By</th>
-                </tr>
-            </thead>
-
-            <tbody id="tabDataDiv">
-
-
-            </tbody>
-        </table>
-    </div>
-</div>
 
 <!-- other functions -->
 <script>
@@ -156,15 +136,22 @@
 
     $(function() {
         $(".item-select").chosen();
-
     });
 </script>
+
+
+<!-- datatable -->
 <script>
     $(document).ready(function() {
         $('#example').DataTable();
     });
 </script>
 
+<script>
+    function redirection() {
+        location.replace('Controller/AllProductHandler.php')
+    }
+</script>
 
 <!-- validation scripts and submission for form1 insertion form -->
 <script type="text/javascript">
@@ -292,14 +279,6 @@
     });
 </script>
 
-
-
-
-
-
-
-
-
 <!-- for showing all data form, form no2 -->
 <script>
     $("#allProductForm").submit(function(e) {
@@ -313,27 +292,29 @@
             dataType: "html",
             data: $('#allProductForm').serialize(),
             success: function(data) {
-                alert('Show all products'); // show response from the php script.
-                $(".display-error").html("");
-                console.log(data);
+                // window.location.replace('http://mywebsite.com/home.html');
 
-                var jsonData = JSON.parse(data);
+                // alert('Show all products'); // show response from the php script.
+                // $(".display-error").html("");
+                // console.log(data);
 
-                if (jsonData.code == 200 && jsonData.msg == "tableDataFound") {
-                    $("#tabDataDiv").html("");
+                // var jsonData = JSON.parse(data);
 
-                    $('#productForm').trigger("reset");
-                    $(".item-select").val('').trigger("chosen:updated");
-                    $("#tabDataDiv").html(jsonData.tdata);
+                // if (jsonData.code == 200 && jsonData.msg == "tableDataFound") {
+                //     $("#tabDataDiv").html("");
 
-                } else if (jsonData.code == 200 && jsonData.msg == "tableDataNotFound") {
-                    $("#tabDataDiv").html("");
+                //     $('#productForm').trigger("reset");
+                //     $(".item-select").val('').trigger("chosen:updated");
+                //     $("#tabDataDiv").html(jsonData.tdata);
 
-                    $('#productForm').trigger("reset");
-                    $(".item-select").val('').trigger("chosen:updated");
-                    $("#tabDataDiv").html(jsonData.tdata);
+                // } else if (jsonData.code == 200 && jsonData.msg == "tableDataNotFound") {
+                //     $("#tabDataDiv").html("");
 
-                }
+                //     $('#productForm').trigger("reset");
+                //     $(".item-select").val('').trigger("chosen:updated");
+                //     $("#tabDataDiv").html(jsonData.tdata);
+
+                // }
             }
         });
 
