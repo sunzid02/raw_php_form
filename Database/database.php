@@ -22,17 +22,17 @@
         {
             $exe = mysqli_query($conn, $sql);
 
-            if ($exe) 
-            {
-                echo "<br>exe func<br>";
+            // if ($exe) 
+            // {
+            //     echo "<br>exe func<br>";
                 
-            } 
-            else 
-            {
-                echo "<br>";
-                printf("error: %s\n", mysqli_error($conn));
-                echo "<br>";
-            }
+            // } 
+            // else 
+            // {
+            //     echo "<br>";
+            //     printf("error: %s\n", mysqli_error($conn));
+            //     echo "<br>";
+            // }
             
             return $exe ;
             // return $retVal = ($exe) ? true : false ;

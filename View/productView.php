@@ -15,7 +15,9 @@
                     </div>
                 </div>
 
-                <form method="POST">
+                <form method="POST" id="productForm">
+                    <input type="hidden" name="formNumber" value="1" />
+
                     <!-- amount -->
                     <div class="input-group">
                         <!-- comment out html validations -->
@@ -61,6 +63,7 @@
                     </div>
 
                     <!-- note  -->
+                    <br>
                     <div class="row row-space">
                         <div class="col-12">
                             <div class="input-group">
@@ -68,6 +71,7 @@
                             </div>
                         </div>
                     </div>
+                    <br>
 
                     <!-- city -->
                     <div class="input-group">
@@ -95,11 +99,46 @@
                     </div>
                 </form>
 
+
             </div>
         </div>
+        <!--------------------------------------------- show all products ------------------------------------------------->
+        <br>
+        <form method="post" id="allProductForm">
+            <div class="p-t-30">
+                <input type="hidden" name="formNumber" value="2" />
+
+                <input class="btn btn--radius btn--green" type="submit" name="showAllData" value="All Products" />
+            </div>
+        </form>
     </div>
 </div>
 
+<div class="card card-2">
+    <div class="card-body">
+        <table id="example" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Amount</th>
+                    <th>Buyer</th>
+                    <th>Receipt Id</th>
+                    <!-- <th>Items</th> -->
+                    <th>Buyer Email</th>
+                    <th>Note</th>
+                    <th>City</th>
+                    <th>Phone</th>
+                    <th>Entry By</th>
+                </tr>
+            </thead>
+
+            <tbody id="tabDataDiv">
+
+
+            </tbody>
+        </table>
+    </div>
+</div>
 
 <!-- other functions -->
 <script>
@@ -117,10 +156,17 @@
 
     $(function() {
         $(".item-select").chosen();
+
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        $('#example').DataTable();
     });
 </script>
 
-<!-- validation scripts and submission -->
+
+<!-- validation scripts and submission for form1 insertion form -->
 <script type="text/javascript">
     ////custom methods for validation
     $.validator.addMethod('regex', function(value, element, param) {
@@ -134,8 +180,8 @@
     }, 'You can enter max 30 words');
 
 
-    // validate the form 
-    $("form").validate({
+    //// validate the form 
+    $('#productForm').validate({
         // rules: {
         //     amount: {
         //         required: true,
@@ -210,9 +256,11 @@
                 type: 'POST',
                 url: 'Controller/ProductControllerHandler.php',
                 dataType: "html",
-                data: $('form').serialize(),
+                data: $('#productForm').serialize(),
                 success: function(data) {
                     alert('submitted');
+                    $("#tabDataDiv").html("");
+
                     var jsonData = JSON.parse(data);
 
                     console.log(jsonData.msg);
@@ -226,12 +274,10 @@
                         $(".display-error").html("<ul>" + jsonData.msg + "</ul>");
                         $(".display-error").css("display", "block");
                         $(".display-error").css("color", "red");
-                    } 
-                    else if (jsonData.code == 200 && jsonData.msg == "successInsert") 
-                    {
+                    } else if (jsonData.code == 200 && jsonData.msg == "successInsert") {
                         $(".display-error").html("");
                         alert('Inserted successfully');
-                        $('form').trigger("reset");
+                        $('#productForm').trigger("reset");
                         $(".item-select").val('').trigger("chosen:updated");
                     }
 
@@ -246,6 +292,54 @@
     });
 </script>
 
+
+
+
+
+
+
+
+
+<!-- for showing all data form, form no2 -->
+<script>
+    $("#allProductForm").submit(function(e) {
+
+        e.preventDefault(); // avoid to execute the actual submit of the form.
+
+
+        $.ajax({
+            type: "POST",
+            url: 'Controller/ProductControllerHandler.php',
+            dataType: "html",
+            data: $('#allProductForm').serialize(),
+            success: function(data) {
+                alert('Show all products'); // show response from the php script.
+                $(".display-error").html("");
+                console.log(data);
+
+                var jsonData = JSON.parse(data);
+
+                if (jsonData.code == 200 && jsonData.msg == "tableDataFound") {
+                    $("#tabDataDiv").html("");
+
+                    $('#productForm').trigger("reset");
+                    $(".item-select").val('').trigger("chosen:updated");
+                    $("#tabDataDiv").html(jsonData.tdata);
+
+                } else if (jsonData.code == 200 && jsonData.msg == "tableDataNotFound") {
+                    $("#tabDataDiv").html("");
+
+                    $('#productForm').trigger("reset");
+                    $(".item-select").val('').trigger("chosen:updated");
+                    $("#tabDataDiv").html(jsonData.tdata);
+
+                }
+            }
+        });
+
+
+    });
+</script>
 
 
 

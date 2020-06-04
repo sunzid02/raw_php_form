@@ -2,9 +2,10 @@
 
 require('ProductController.php');
 
-if (isset($_POST)) 
+////form submission for all data
+if ($_POST['formNumber'] == 1) 
 {
-    ////gathering the submitted data
+    ////.................................gathering the submitted data............................................
     $data['amount'] = $_POST['amount'];
     $data['buyer'] = $_POST['buyer'];
     $data['receiptId'] = $_POST['receiptId'];
@@ -48,7 +49,21 @@ if (isset($_POST))
 
     $pc = new ProductController();
 
-    ////send the data for validation and submission
+    ////..................................send the data for validation and submission.....................................
     $result = $pc->validationAndSubmission($data);
     // echo $result;
+}
+
+// echo "<pre>";
+// print_r($_POST);
+
+////for showing all data
+if ($_POST['formNumber'] == 2 ) 
+{
+    // echo "zia";
+    // die();
+    $pc = new ProductController();
+    $pc->getProductData();
+
+
 }

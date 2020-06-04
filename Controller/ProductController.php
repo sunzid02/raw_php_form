@@ -157,4 +157,11 @@ class ProductController
 
 
     }
+
+    public function getProductData()
+    {
+        $product = new ProductModel();
+        $product->allProducts();
+
+    }
 }

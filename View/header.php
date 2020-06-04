@@ -46,12 +46,27 @@
 
 
 
+    <!-- datatable -->
+    <link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css" />
+    <!-- <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.3.min.js"></script> -->
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+
+
     <style>
         .error {
             color: red;
         }
 
+        .label {
+            color: white;
+            padding: 3px;
+        }
 
+        .success {
+            background-color: #4CAF50;
+        }
+
+        /* Green */
     </style>
 
 </head>
