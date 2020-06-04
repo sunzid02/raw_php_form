@@ -16,8 +16,6 @@
                 </div>
 
                 <form method="POST" id="productForm">
-                    <input type="hidden" name="formNumber" value="1" />
-
                     <!-- amount -->
                     <div class="input-group">
                         <!-- comment out html validations -->
@@ -101,19 +99,9 @@
 
                 <!--------------------------------------------- show all products ------------------------------------------------->
                 <br>
-                <!-- <form method="post" id="allProductForm"> -->
                 <div class="p-t-30">
-                    <!-- <input type="hidden" name="formNumber" value="2" /> -->
-                    <?php
-                    // $projectName = explode('/', $_SERVER['REQUEST_URI'])[1];
-                    // $testRoute = "'" . $_SERVER['HTTP_HOST'] . '/' . $projectName . '/test.php' . "'";
-                    ?>
                     <input type="button" name="showAllData" value="All Products" class="btn btn--radius btn--green" id="showAllData" onclick="redirection()">
                 </div>
-                <!-- </form> -->
-
-
-
             </div>
         </div>
     </div>
@@ -147,6 +135,7 @@
     });
 </script>
 
+<!-- redirect to all product -->
 <script>
     function redirection() {
         location.replace('Controller/AllProductHandler.php')
@@ -169,79 +158,79 @@
 
     //// validate the form 
     $('#productForm').validate({
-        // rules: {
-        //     amount: {
-        //         required: true,
-        //         number: true,
-        //         maxlength: 10
-        //     },
-        //     buyer: {
-        //         required: true,
-        //         maxlength: 20,
-        //         regex: /^[a-zA-Z\s0-9]+$/ //only text, spaces and numbers regex
-        //     },
-        //     receiptId: {
-        //         required: true,
-        //         maxlength: 20,
-        //         regex: /(^[a-z ]+$)/i //only text, 
-        //     },
-        //     items: {
-        //         required: true,
-        //         regex: /(^[a-z ]+$)/i //only text, 
-        //     },
-        //     buyerEmail: {
-        //         required: true,
-        //         email: true,
-        //         maxlength: 50
-        //     },
-        //     note: {
-        //         required: true,
-        //         wordCount: true
+        rules: {
+            amount: {
+                required: true,
+                number: true,
+                maxlength: 10
+            },
+            buyer: {
+                required: true,
+                maxlength: 20,
+                regex: /^[a-zA-Z\s0-9]+$/ //only text, spaces and numbers regex
+            },
+            receiptId: {
+                required: true,
+                maxlength: 20,
+                regex: /(^[a-z ]+$)/i //only text, 
+            },
+            items: {
+                required: true,
+                regex: /(^[a-z ]+$)/i //only text, 
+            },
+            buyerEmail: {
+                required: true,
+                email: true,
+                maxlength: 50
+            },
+            note: {
+                required: true,
+                wordCount: true
 
-        //     },
-        //     city: {
-        //         required: true,
-        //         maxlength: 20,
-        //         regex: /^[a-zA-Z\s]+$/ //only text, spaces regex
+            },
+            city: {
+                required: true,
+                maxlength: 20,
+                regex: /^[a-zA-Z\s]+$/ //only text, spaces regex
 
-        //     },
-        //     phone: {
-        //         required: true,
-        //         maxlength: 20,
-        //         number: true
-        //     },
-        //     entryBy: {
-        //         required: true,
-        //         maxlength: 10,
-        //         number: true
-        //     }
-        // },
-        // messages: {
-        //     amount: {
-        //         required: "Amount is required",
-        //         number: "amount must be a number",
-        //         maxlength: "amount cannot be  more than 10 characters",
-        //     },
-        //     buyer: {
-        //         required: "Buyer is required",
-        //         regex: "only text, spaces and numbers are accepted for Buyer",
-        //     },
-        //     receiptId: {
-        //         required: "Receipt id is required",
-        //         regex: "only text is accepted",
-        //     },
-        //     city: {
-        //         required: "City is required",
-        //         regex: "only text, spaces accepted for City",
-        //         maxlength: "City length can not be more than 20 characters"
-        //     }
-        // },
+            },
+            phone: {
+                required: true,
+                maxlength: 20,
+                number: true
+            },
+            entryBy: {
+                required: true,
+                maxlength: 10,
+                number: true
+            }
+        },
+        messages: {
+            amount: {
+                required: "Amount is required",
+                number: "amount must be a number",
+                maxlength: "amount cannot be  more than 10 characters",
+            },
+            buyer: {
+                required: "Buyer is required",
+                regex: "only text, spaces and numbers are accepted for Buyer",
+            },
+            receiptId: {
+                required: "Receipt id is required",
+                regex: "only text is accepted",
+            },
+            city: {
+                required: "City is required",
+                regex: "only text, spaces accepted for City",
+                maxlength: "City length can not be more than 20 characters"
+            }
+        },
         submitHandler: function(form, e) {
             e.preventDefault();
             // console.log('Form submitted');
             $.ajax({
                 type: 'POST',
-                url: 'Controller/ProductControllerHandler.php',
+                url: 'Controller/ProductFormHandler.php',
                 dataType: "html",
                 data: $('#productForm').serialize(),
                 success: function(data) {
@@ -279,48 +268,6 @@
     });
 </script>
 
-<!-- for showing all data form, form no2 -->
-<script>
-    $("#allProductForm").submit(function(e) {
-
-        e.preventDefault(); // avoid to execute the actual submit of the form.
-
-
-        $.ajax({
-            type: "POST",
-            url: 'Controller/ProductControllerHandler.php',
-            dataType: "html",
-            data: $('#allProductForm').serialize(),
-            success: function(data) {
-                // window.location.replace('http://mywebsite.com/home.html');
-
-                // alert('Show all products'); // show response from the php script.
-                // $(".display-error").html("");
-                // console.log(data);
-
-                // var jsonData = JSON.parse(data);
-
-                // if (jsonData.code == 200 && jsonData.msg == "tableDataFound") {
-                //     $("#tabDataDiv").html("");
-
-                //     $('#productForm').trigger("reset");
-                //     $(".item-select").val('').trigger("chosen:updated");
-                //     $("#tabDataDiv").html(jsonData.tdata);
-
-                // } else if (jsonData.code == 200 && jsonData.msg == "tableDataNotFound") {
-                //     $("#tabDataDiv").html("");
-
-                //     $('#productForm').trigger("reset");
-                //     $(".item-select").val('').trigger("chosen:updated");
-                //     $("#tabDataDiv").html(jsonData.tdata);
-
-                // }
-            }
-        });
-
-
-    });
-</script>
 
 
 

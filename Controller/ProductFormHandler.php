@@ -3,7 +3,7 @@
 require('ProductController.php');
 
 ////form submission for all data
-if ($_POST['formNumber'] == 1) 
+if ($_POST) 
 {
     ////.................................gathering the submitted data............................................
     $data['amount'] = $_POST['amount'];
@@ -53,20 +53,3 @@ if ($_POST['formNumber'] == 1)
     $result = $pc->validationAndSubmission($data);
     // echo $result;
 }
-
-// echo "<pre>";
-// print_r($_POST);
-
-////for showing all data
-// if ($_POST['formNumber'] == 2 ) 
-// // {
-// //     // echo "zia";
-// //     // die();
-// //     $pc = new ProductController();
-// //     echo "<script> location.href='./test.php'; </script>";
-// //     exit;
-// //     // include('../test.php');
-// //     // $pc->getProductData();
-
-
-// // }
