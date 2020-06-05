@@ -52,8 +52,8 @@
 
                 if (false === $stmt) 
                 {
-                    echo $insertionResponse =  json_encode(['code' => 200, 'msg' => 'prepare() failed: ' . htmlspecialchars($conn->error) ]);
-                    die();
+                    $insertionResponse =  json_encode(['code' => 200, 'msg' => 'prepare() failed: ' . htmlspecialchars($conn->error) ]);
+                    // die();
                 } 
                 else 
                 {
@@ -62,9 +62,13 @@
                     $stmt->close();
                     $connObj->closeConnection($conn);
 
-                    echo $insertionResponse =  json_encode(['code' => 200, 'msg' => 'successInsert']);
+
+
+                    $insertionResponse =  json_encode(['code' => 200, 'msg' => 'successInsert']);
 
                 }
+
+                return $insertionResponse;
             ////.................... prepare and bind for preventing sql injection ends.........................................................
 
 
@@ -114,5 +118,8 @@
             return $responseArr;
 
         }
+
+
+
     }
     
