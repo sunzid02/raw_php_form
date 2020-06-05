@@ -224,6 +224,9 @@
                 dataType: "html",
                 data: $('#productForm').serialize(),
                 success: function(data) {
+
+                    console.log(data);
+                    
                     // alert('submitted');
                     $("#tabDataDiv").html("");
 
