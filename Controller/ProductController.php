@@ -7,8 +7,8 @@ class ProductController
     public function cookieCheck()
     {
         if (count($_COOKIE) == 0) {
-            setcookie('user', 'sunzid', time() + 30); ////expire time 1day or 24hours
-            // setcookie('user', 'sunzid', time() + 86400 ); ////expire time 1day or 24hours
+            // setcookie('user', 'sunzid', time() + 30); ////expire time 1day or 24hours
+            setcookie('user', 'sunzid', time() + 86400 ); ////expire time 1day or 24hours
             return true;
         } 
         else 
